@@ -1,0 +1,45 @@
+import random
+
+def throw_yut():
+    yuts = ['도', '개', '걸', '윷', '모']
+    result = [random.choice(yuts) for _ in range(4)]
+    print('윷 결과:', result)
+    return result.count('도'), result.count('개'), result.count('걸'), result.count('윷'), result.count('모')
+
+def get_valid_moves(positions, yut):
+    moves = []
+    for i, pos in enumerate(positions):
+        if pos == 0:
+            continue
+        if pos == 32:
+            if yut == '모':
+                moves.append((i, 5))
+            continue
+        if pos in [5, 10, 15, 20, 25]:
+            if yut == '도':
+                moves.append((i, pos+1))
+            elif yut == '개':
+                moves.append((i, pos+2))
+            elif yut == '걸':
+                moves.append((i, pos+3))
+            elif yut == '윷':
+                moves.append((i, pos+4))
+            elif yut == '모':
+                moves.append((i, pos+5))
+        elif pos in [1, 2, 3, 4]:
+            if yut == '윷':
+                moves.append((i, pos+4))
+            elif yut == '모':
+                moves.append((i, pos+5))
+        else:
+            moves.append((i, pos+int(yut)))
+    return moves
+
+def print_board(positions):
+    print(' ' * 7 + '{:^6}'.format('도') + '{:^6}'.format('개') + '{:^6}'.format('걸') + '{:^6}'.format('윷') + '{:^6}'.format('모'))
+    print('-' * 46)
+    print('{:^6}|'.format('1') + '{:^6}'.format(positions[0]) + '{:^6}'.format(positions[1]) + '{:^6}'.format(positions[2]) + '{:^6}'.format(positions[3]) + '{:^6}|'.format(positions[4]))
+    print('{:^6}|'.format('2') + '{:^6}|'.format('') + '{:^6}|'.format('') + '{:^6}|'.format('') + '{:^6}|'.format('') + '{:^6}|'.format(''))
+    print('{:^6}|'.format('3') + '{:^6}|'.format('') + '{:^6}|'.format('') + '{:^6}|'.format('') + '{:^6}|'.format('') + '{:^6}|'.format(''))
+    print('{:^6}|'.format('4') + '{:^6}|'.format('') + '{:^6}|'.format('') + '{:^6}|'.format('') + '{:^6}|'.format('') + '{:^6}|'.format(''))
+    print('{:^6}|'.format('5') + '{:^6}|'.format('') + '{:^6}|'.format('') + '{:^6}|'.format('') + '{:^6}|'.format('') + '{:^6}|'.format(''))
